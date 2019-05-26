@@ -5,6 +5,7 @@ class TaskForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            id: '', 
             name: '',
             status: false
         }
@@ -12,6 +13,16 @@ class TaskForm extends Component {
 
     onCloseForm = () => {
     this.props.onCloseForm();
+    }
+
+    componentWillMount() {
+        if(this.props.task){
+            this.setState({
+                id : this.props.task.id,
+                name : this.props.task.name,
+                status : this.props.task.status
+            })
+        }
     }
 
     onChange = (event) => {
@@ -43,6 +54,7 @@ class TaskForm extends Component {
 
 
     render() {
+        var { id } = this.state;
     return(
         <div className="panel panel-warning">
             <div className="panel-heading">
@@ -52,7 +64,7 @@ class TaskForm extends Component {
                         onClick={this.onCloseForm}
                     ></span></a>
 
-                    <span className="text-right">Thêm Công Việc</span>
+                    <span className="text-right">{ id !== '' ? 'Sua cong viec':'Thêm Công Việc'}</span>
                 </h3>
             </div>
 
@@ -81,7 +93,7 @@ class TaskForm extends Component {
                     </select>
                     <br/>
                     <div className="text-center">
-                        <button type="submit" className="btn btn-warning">Thêm</button>&nbsp;
+                        <button type="submit" className="btn btn-warning">{ id !== '' ? 'luu' :'Thêm'}</button>&nbsp;
                         <button type="button" onClick={this.onClear} className="btn btn-danger">Hủy Bỏ</button>
                     </div>
                 </form>
