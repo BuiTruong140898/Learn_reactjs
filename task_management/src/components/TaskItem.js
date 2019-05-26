@@ -31,7 +31,7 @@ class TaskItem extends Component {
                     <button 
                         type="button" 
                         className="btn btn-warning"
-                        onClick={ this.onUpdate}
+                        onClick={ this.onUpdate }
                     >
                         <span className="fa fa-pencil mr-5"></span>Sửa
                     </button>
