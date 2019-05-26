@@ -25,6 +25,23 @@ class TaskForm extends Component {
         }
     }
 
+    componentWillReceiveProps(nextProps) {
+        if(nextProps &&  nextProps.task){
+            this.setState({
+                id : nextProps.task.id,
+                name : nextProps.task.name,
+                status : nextProps.task.status
+            })
+        }
+        else if(nextProps && nextProps.task === null){
+            this.setState({
+                id: '',
+                name: '',
+                status: false
+            })
+        }
+    }
+
     onChange = (event) => {
         var target = event.target;
         var name = target.name;
