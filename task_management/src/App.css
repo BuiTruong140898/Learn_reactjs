@@ -45,3 +45,11 @@
 .ml-5{
   margin-left: 5px;
 }
+.sort_selected::after {
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  margin: 0px 0px 0px 10px;
+  display: inline-block;
+  content: '\f00c'
+}

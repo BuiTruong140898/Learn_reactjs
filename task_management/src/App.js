@@ -15,7 +15,9 @@ class App extends Component {
         name: '',
         status: -1
       },
-      keyword : ''
+      keyword : '',
+      sortBy : 'name',
+      sortValue: 1
     }
   }
 
@@ -168,8 +170,16 @@ class App extends Component {
       keyword: keyword
     })
   }
+
+  onSort = (sortBy, sortValue) => {
+    this.setState({
+      sortBy: sortBy,
+      sortValue: sortValue      
+    })
+    console.log(this.state);
+  }
   render() {
-    var { tasks, isDisplayForm, taskEditing, filter, keyword} = this.state;// var tasks = this.state.tasks;
+    var { tasks, isDisplayForm, taskEditing, filter, keyword, sortBy, sortValue} = this.state;// var tasks = this.state.tasks;
     if(filter){
       if(filter.name){
         tasks = tasks.filter((task) => {
@@ -191,6 +201,22 @@ class App extends Component {
         tasks = tasks.filter((task) => {
           return task.name.toLowerCase().indexOf(keyword) !== -1;
         });
+    }
+
+    if(sortBy === 'name'){
+      tasks.sort((a,b) => {
+        if(a.name > b.name) return sortValue;
+        else if(a.name < b.name) return -sortValue;
+        else return 0;      
+    });
+    }
+    else{
+      tasks.sort((a,b) => {
+        if(a.status > b.status) return -sortValue;
+        else if(a.status < b.status) return sortValue;
+        else return 0;      
+    });
+
     }    
     var elmTaskForm = isDisplayForm ? 
             <TaskForm 
@@ -199,9 +225,7 @@ class App extends Component {
                 task={taskEditing}
             /> 
         : "";
-    var elemets = tasks.map((task, index) => {
-      return <task/>
-    });
+    
     return(
      <div className="container">
         <div className="text-center"> <h1>Quản Lý Công Việc</h1>
@@ -227,7 +251,13 @@ class App extends Component {
                     <span className="fa fa-plus mr-5"></span>Thêm data
                 </button>
                 {/*Control*/}
-                    <Control onSearch={ this.onSearch }/>
+                    <Control 
+                      onSearch={ this.onSearch }
+                      onSort={ this.onSort }
+                      sortBy={ sortBy }
+                      sortValue={ sortValue }
+                    />
+
                 {/*#Control*/}
                 
                 <div className="row mt-15">
