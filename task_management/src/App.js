@@ -3,6 +3,8 @@ import './App.css';
 import TaskForm from './components/TaskForm'
 import Control from './components/Control'
 import TaskList from './components/TaskList'
+import _ from 'lodash'
+import demo from './demo_redux/demo'
 
 class App extends Component {
   constructor(props) {
@@ -103,14 +105,16 @@ class App extends Component {
 
   onUpdateStatus = (id) => {
     var { tasks } = this.state;
-    var index = this.findIndex(id);
+    //var index = this.findIndex(id);
+    var index = _.findIndex(tasks, (task) => {
+      return task.id === id;
+    }); 
     if(index !== -1){
       tasks[index].status = !tasks[index].status; 
       this.setState({
         tasks: tasks
       })
       localStorage.setItem('tasks', JSON.stringify(tasks));
-
     }
 
   }
