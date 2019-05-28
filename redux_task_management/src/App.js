@@ -8,7 +8,6 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tasks : [] ,//id unique,name, status
       isDisplayForm : false,
       taskEditing : null,
       filter :{
@@ -21,14 +20,7 @@ class App extends Component {
     }
   }
 
-  componentWillMount() {
-    if(localStorage && localStorage.getItem('tasks')){
-      var tasks = JSON.parse(localStorage.getItem('tasks'));
-      this.setState({
-        tasks: tasks 
-      })
-    }
-  }  
+  
 
   themData = ()=>{
     var tasks=[
@@ -179,45 +171,45 @@ class App extends Component {
     console.log(this.state);
   }
   render() {
-    var { tasks, isDisplayForm, taskEditing, filter, keyword, sortBy, sortValue} = this.state;// var tasks = this.state.tasks;
-    if(filter){
-      if(filter.name){
-        tasks = tasks.filter((task) => {
-          return task.name.toLowerCase().indexOf(filter.name) !== -1;
-        })
-      }
+    var { isDisplayForm, taskEditing, filter, keyword, sortBy, sortValue} = this.state;// var tasks = this.state.tasks;
+    // if(filter){
+    //   if(filter.name){
+    //     tasks = tasks.filter((task) => {
+    //       return task.name.toLowerCase().indexOf(filter.name) !== -1;
+    //     })
+    //   }
       
-      tasks = tasks.filter((task) => {
-        if( filter.status === -1 ){
-          return task;
-        }
-        else{
-          return task.status === (filter.status === 1 ? true : false) ;
-        }
-      })
-    }
+      // tasks = tasks.filter((task) => {
+      //   if( filter.status === -1 ){
+      //     return task;
+      //   }
+      //   else{
+      //     return task.status === (filter.status === 1 ? true : false) ;
+      //   }
+      // })
+    //}
 
-    if(keyword){
-        tasks = tasks.filter((task) => {
-          return task.name.toLowerCase().indexOf(keyword) !== -1;
-        });
-    }
+    // if(keyword){
+    //     tasks = tasks.filter((task) => {
+    //       return task.name.toLowerCase().indexOf(keyword) !== -1;
+    //     });
+    // }
 
-    if(sortBy === 'name'){
-      tasks.sort((a,b) => {
-        if(a.name > b.name) return sortValue;
-        else if(a.name < b.name) return -sortValue;
-        else return 0;      
-    });
-    }
-    else{
-      tasks.sort((a,b) => {
-        if(a.status > b.status) return -sortValue;
-        else if(a.status < b.status) return sortValue;
-        else return 0;      
-    });
+    // if(sortBy === 'name'){
+    //   tasks.sort((a,b) => {
+    //     if(a.name > b.name) return sortValue;
+    //     else if(a.name < b.name) return -sortValue;
+    //     else return 0;      
+    // });
+    // }
+    // else{
+    //   tasks.sort((a,b) => {
+    //     if(a.status > b.status) return -sortValue;
+    //     else if(a.status < b.status) return sortValue;
+    //     else return 0;      
+    // });
 
-    }    
+    //}    
     var elmTaskForm = isDisplayForm ? 
             <TaskForm 
                 onSubmit = {this.onSubmit} 

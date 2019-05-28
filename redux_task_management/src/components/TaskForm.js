@@ -1,4 +1,6 @@
 import React,{Component} from 'react';
+import { connect } from 'react-redux';
+import * as actions from './../actions/Index';
 
 class TaskForm extends Component {
 
@@ -54,9 +56,9 @@ class TaskForm extends Component {
         });
     }
 
-    onSubmit = (event) => {
+    onHandleSubmit = (event) => {
         event.preventDefault();
-        this.props.onSubmit(this.state);
+        this.props.onAddTask(this.state);
         //xoa cac gia tri 
         this.onClear();
         this.onCloseForm();
@@ -86,7 +88,7 @@ class TaskForm extends Component {
             </div>
 
             <div className="panel-body">
-                <form onSubmit={this.onSubmit}>
+                <form onSubmit={this.onHandleSubmit}>
                     <div className="form-group">
                         <label>Tên :</label>
                         <input 
@@ -119,4 +121,20 @@ class TaskForm extends Component {
     ); 
     }
     }
-export default TaskForm;
+
+const mapStateToProps = state => {
+    return {
+        
+    }
+}
+
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+        onAddTask : (task) => {
+            dispatch(actions.addTask(task))
+
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TaskForm);
