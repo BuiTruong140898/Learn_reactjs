@@ -8,6 +8,16 @@ var randomID = () => {
 return s4()+ '-' + s4() + '+' + s4();
 }
 
+var findIndex = (tasks, id) => {
+    var result = -1;
+    tasks.forEach((task, index) => {
+      if(task.id === id) {
+        result = index;
+      }
+    })
+    return result;
+}
+
 var data = JSON.parse(localStorage.getItem('tasks'));
 var innitialState = data ? data : [];
 var myReducer = ( state = innitialState, action ) => {
@@ -24,6 +34,21 @@ var myReducer = ( state = innitialState, action ) => {
 			state.push(newTask);
 			localStorage.setItem('tasks', JSON.stringify(state));
 			return [...state]
+		case types.UPDATE_STATUS_TASK:
+			var id = action.id;
+		    var index = findIndex(state,id);
+		    state[index] = {
+		    	...state[index],
+		    	status : !state[index].status
+		    }
+		    // var cloneTask = {...state[index]}
+		    // cloneTask.status = !cloneTask.status;
+		    // state[index] = cloneTask;
+		    // // state.splice(index,1);
+		    // // state.push(cloneTask);		    
+		    localStorage.setItem('tasks', JSON.stringify(state));
+			console.log(state);
+			return [...state];
 		default : return state;
 
 	}
