@@ -62,18 +62,7 @@ class App extends Component {
     return result;
   }
 
-  onDelete = (id) => {
-    var { tasks } = this.state;
-    var index = this.findIndex(id);
-    if(index !== -1){
-      tasks.splice(index, 1);
-      this.setState({
-        tasks: tasks
-      })
-      localStorage.setItem('tasks', JSON.stringify(tasks));
-    }
-    this.onCloseForm();
-  }
+  
 
   onShowForm = () => {
     this.setState({
@@ -167,7 +156,6 @@ class App extends Component {
                 <div className="row mt-15">
                     {/*TaskList*/}
                     <TaskList 
-                      onDelete={this.onDelete}
                       onFilter={this.onFilter}
                     />
                     {/*TaskList*/}
